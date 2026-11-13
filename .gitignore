@@ -1,0 +1,7 @@
+# Build output: regenerated on every machine, never commit
+build/
+sdkconfig.old
+
+# Editor settings: contain paths that only exist on one laptop
+.vscode/
+.clangd
