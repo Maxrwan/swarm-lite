@@ -1,0 +1,4 @@
+(sym_lib_table
+	(version 7)
+	(lib (name "swarm")(type "KiCad")(uri "${KIPRJMOD}/swarm.kicad_sym")(options "")(descr "SWARM-Lite project symbols"))
+)
