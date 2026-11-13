@@ -1,17 +1,21 @@
-// TEMPORARY main: motor hardware test (copied from tools/motor_test_main.c). Wheels OFF THE GROUND / robot on a stand!
-#include "motors.h"
+// TEMPORARY main: line sensor test (copied from tools/line_test_main.c).
+// Prints the 8 raw readings once a second. Small = bright floor, large = dark tape.
+#include <stdio.h>
+#include "line_sensor.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 
 void app_main(void)
 {
-    motors_init();
+    uint16_t raw[LINE_SENSOR_COUNT];
+
+    line_sensor_init();
     while (1) {
-        motors_set(50, 50);   vTaskDelay(pdMS_TO_TICKS(2000)); // both forward, half of capped max
-        motors_stop();        vTaskDelay(pdMS_TO_TICKS(1000));
-        motors_set(-50, -50); vTaskDelay(pdMS_TO_TICKS(2000)); // both reverse
-        motors_stop();        vTaskDelay(pdMS_TO_TICKS(1000));
-        motors_set(50, -50);  vTaskDelay(pdMS_TO_TICKS(2000)); // spin in place
-        motors_stop();        vTaskDelay(pdMS_TO_TICKS(1000));
+        line_sensor_read_raw(raw);
+        for (int i = 0; i < LINE_SENSOR_COUNT; i++) {
+            printf("%5u ", raw[i]);   // %5u = a number padded to 5 characters, so columns line up
+        }
+        printf("\n");
+        vTaskDelay(pdMS_TO_TICKS(1000));
     }
 }

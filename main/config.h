@@ -21,3 +21,15 @@
 // Set to -1 if a motor spins the wrong way (easier than rewiring).
 #define MOTOR_L_DIR        1
 #define MOTOR_R_DIR        1
+
+// ---------- Line sensor (QTR-8RC, all 8 outputs) ----------
+// Order = sensor OUT1..OUT8 across the board. Matches schematic nets LINE_S1..LINE_S8.
+#define LINE_SENSOR_COUNT  8
+#define LINE_SENSOR_GPIOS  { 15, 16, 17, 18, 8, 9, 2, 42 }
+
+#define LINE_CHARGE_US     10   // how long we push each pin high to charge the sensor (microseconds)
+#define LINE_TIMEOUT_US    2500 // stop waiting after this long; a reading this high means "very dark"
+
+// Line position maths works on "darkness" values: 0 = bright floor .. 1000 = black tape.
+#define LINE_NOISE_MAX     50   // darkness at or below this is ignored (floor is never perfectly 0)
+#define LINE_SEEN_MIN      200  // at least one sensor must be above this, or we say "no line"
